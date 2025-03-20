@@ -87,3 +87,4 @@ INSERT INTO [dbo].[Appointments] (UserId, Total, StartTime, EndTime, CreateDate,
 INSERT INTO [dbo].[AppointmentDetails] (AppointmentId, ServiceId) VALUES
 (1, 1), (2, 2), (3, 3);
 go
+go
