@@ -86,3 +86,4 @@ INSERT INTO [dbo].[Appointments] (UserId, Total, StartTime, EndTime, CreateDate,
 -- Thêm dữ liệu vào bảng AppointmentDetails
 INSERT INTO [dbo].[AppointmentDetails] (AppointmentId, ServiceId) VALUES
 (1, 1), (2, 2), (3, 3);
+go
