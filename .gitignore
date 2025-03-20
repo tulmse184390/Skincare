@@ -1,0 +1,52 @@
+# Visual Studio files
+.vs/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Build output
+bin/
+obj/
+TestResults/
+
+# Package management
+packages/
+*.nupkg
+project.lock.json
+project.assets.json
+# NuGet restore
+!packages/**/*.dll
+
+# Rider (JetBrains IDE)
+.idea/
+
+# Windows-specific files
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Logs
+*.log
+
+# Publish output
+publish/
+*.publishsettings
+
+# Resharper files
+_ReSharper*/
+
+# Entity Framework Migrations
+Migrations/
+
+# App secrets
+secrets.json
+
+# Local databases
+*.mdf
+*.ldf
+*.sqlite
+*.db
+
+# Temporary files
+*.tmp
