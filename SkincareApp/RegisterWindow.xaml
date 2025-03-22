@@ -1,0 +1,102 @@
+﻿<Window x:Class="SkincareApp.RegisterWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SkincareApp"
+        mc:Ignorable="d" WindowStartupLocation="CenterScreen" WindowStyle="None" AllowsTransparency="True" Background="Transparent"
+        Height="500" Width="800">
+    <Grid>
+        <Image Source="Images/close.png" x:Name="closeBtn" MouseUp="closeBtn_MouseUp" Panel.ZIndex="1"  Style="{StaticResource imgClose}"/>
+        <Image Source="/Images/minimize.png" x:Name="minimizeBtn" MouseUp="minimizeBtn_MouseUp" Panel.ZIndex="1"  Style="{StaticResource imgMinimize}" Margin="0,3,44,0"/>
+
+        <Border MouseDown="Border_MouseDown" Background="#ffffff" CornerRadius="10" BorderBrush="#F08080" BorderThickness="1">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="2*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+
+                <Border Background="#F08080" CornerRadius="0 10 10 0" Grid.Column="1">
+                    <StackPanel Margin="0 40">
+                        <Image Source="/Images/image.png" Height="184" Width="160" />
+                        <TextBlock Text="Professional Skin Care" Style="{StaticResource normalText}" FontWeight="Bold" FontSize="20"/>
+                        <TextBlock Text="Providing professional skin care services and knowledge" Foreground="#efefef"
+                   Style="{StaticResource normalText}" />
+                        <Button x:Name="changeToLogin" Content="Login" Style="{StaticResource normalButton}" Click="changeToLogin_Click"/>
+                    </StackPanel>
+                </Border>
+
+                <Canvas>
+                    <TextBlock Text="Register to the app" Style="{StaticResource titleStyle}" Canvas.Left="69" Canvas.Top="70" />
+                    <Label Content="Email" Style="{StaticResource normalLabel}" RenderTransformOrigin="1.755,5.91" Canvas.Left="23" Canvas.Top="163" Height="35" Width="53" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    <Border BorderThickness="1" BorderBrush="#acb0af" CornerRadius="5" Canvas.Left="106" Canvas.Top="160" HorizontalAlignment="Left" VerticalAlignment="Center" Width="401" Height="35">
+                        <Grid Margin="9,0,0,0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="auto" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+
+                            <TextBlock x:Name="textEmail" MouseDown="textEmail_MouseDown" Text="Email" Style="{StaticResource textHint}" HorizontalAlignment="Center" Width="388" Margin="0,5,0,5" Grid.Column="1"/>
+                            <TextBox x:Name="txtEmail" TextChanged="txtEmail_TextChanged" Style="{StaticResource textBox}" Margin="0,5,10,5" Grid.ColumnSpan="2"/>
+                        </Grid>
+                    </Border>
+                    <Label Content="Password" Style="{StaticResource normalLabel}" RenderTransformOrigin="1.755,5.91" Canvas.Left="21" Canvas.Top="204" Height="35" Width="94" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                    <Border BorderThickness="1" BorderBrush="#acb0af" CornerRadius="5" Canvas.Left="106" Canvas.Top="202" HorizontalAlignment="Left" VerticalAlignment="Center" Width="402" Height="35">
+                        <Grid Margin="7 9">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="auto" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+
+                            <TextBlock x:Name="textPassword" MouseDown="textPassword_MouseDown" Text="Password" Style="{StaticResource textHint}" Grid.ColumnSpan="2" Margin="0,-5,10,-5"/>
+                            <PasswordBox x:Name="txtPassword" PasswordChanged="txtPassword_PasswordChanged" Style="{StaticResource textBox}" Margin="0,-5,0,-5" HorizontalAlignment="Center" Width="384" Grid.Column="1"/>
+                        </Grid>
+                    </Border>
+                    <Label Content="First name" Style="{StaticResource normalLabel}" RenderTransformOrigin="1.755,5.91" Canvas.Left="23" Canvas.Top="244" Height="35" Width="74" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+                    <Border BorderThickness="1" BorderBrush="#acb0af" CornerRadius="5" Canvas.Left="106" Canvas.Top="242" HorizontalAlignment="Left" VerticalAlignment="Center" Width="401" Height="35">
+                        <Grid Margin="7 9">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="auto" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+
+                            <TextBlock x:Name="textFirstName" MouseDown="textFirstName_MouseDown" Text="First name" Style="{StaticResource textHint}" Grid.ColumnSpan="2" Margin="0,-5,10,-5"/>
+                            <TextBox x:Name="txtFirstName" TextChanged="txtFirstName_TextChanged" Style="{StaticResource textBox}" Margin="0,-5,0,-5" HorizontalAlignment="Center" Width="384" Grid.Column="1"/>
+                        </Grid>
+                    </Border>
+                    <Label Content="Last name" Style="{StaticResource normalLabel}" RenderTransformOrigin="1.755,5.91" Canvas.Left="23" Canvas.Top="282" Height="35" Width="92" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                    <Border BorderThickness="1" BorderBrush="#acb0af" CornerRadius="5" Canvas.Left="106" Canvas.Top="282" HorizontalAlignment="Center" VerticalAlignment="Center" Width="401" Height="35">
+                        <Grid Margin="7 9">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="auto" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+
+                            <TextBlock x:Name="textLastName" MouseDown="textLastName_MouseDown" Text="Last name" Style="{StaticResource textHint}" Grid.ColumnSpan="2" Margin="0,-5,10,-5"/>
+                            <TextBox x:Name="txtLastName" TextChanged="txtLastName_TextChanged" Style="{StaticResource textBox}" Margin="0,-5,0,-5" HorizontalAlignment="Center" Width="384" Grid.Column="1"/>
+                        </Grid>
+                    </Border>
+                    <Label Content="Phone" Style="{StaticResource normalLabel}" RenderTransformOrigin="1.755,5.91" Canvas.Left="21" Canvas.Top="324" Height="35" Width="92" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                    <Border BorderThickness="1" BorderBrush="#acb0af" CornerRadius="5" Canvas.Left="106" Canvas.Top="322" HorizontalAlignment="Center" VerticalAlignment="Top" Width="401" Height="35">
+                        <Grid Margin="7 9">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="auto" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+
+                            <TextBlock x:Name="textPhonumber" MouseDown="textPhonumber_MouseDown" Text="Phone number" Style="{StaticResource textHint}" Grid.ColumnSpan="2" Margin="0,-5,10,-5"/>
+                            <TextBox x:Name="txtPhonumber" TextChanged="txtPhonumber_TextChanged" Style="{StaticResource textBox}" Margin="0,-5,0,-5" HorizontalAlignment="Center" Width="384" Grid.Column="1"/>
+                        </Grid>
+                    </Border>
+                    <Label Content="Gender" Style="{StaticResource normalLabel}" RenderTransformOrigin="1.755,5.91" Canvas.Left="21" Canvas.Top="362" Height="35" Width="92" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+                    <StackPanel Orientation="Horizontal" Canvas.Left="113" Canvas.Top="368" HorizontalAlignment="Center" VerticalAlignment="Top">
+                        <RadioButton IsChecked="True" x:Name="Male" Content="Male" GroupName="Gender" />
+                        <RadioButton x:Name="Female" Content="Female" GroupName="Gender" Margin="20,0,0,0"/>
+                    </StackPanel>
+                    <Button Content="Register" x:Name="registerBtn" Click="registerBtn_Click" Style="{StaticResource normalButton02}" Canvas.Left="206" Canvas.Top="400" HorizontalAlignment="Center" Height="32" VerticalAlignment="Top" />
+                </Canvas>
+            </Grid>
+        </Border>
+    </Grid>
+</Window>

@@ -16,7 +16,7 @@ namespace DAL.Repositories.Implements
 
         public async Task<User?> GetUserByEmailAsync(string email)
         {
-            return await dbContext.Users.FirstOrDefaultAsync(x => x.Email == email);
+            return await dbContext.Users.Include(x => x.Role).FirstOrDefaultAsync(x => x.Email.ToLower() == email.ToLower());
         }
 
         public async Task<User> AddUserAsync(User user)
@@ -24,6 +24,11 @@ namespace DAL.Repositories.Implements
             await dbContext.Users.AddAsync(user);
             await dbContext.SaveChangesAsync();
             return user;
+        }
+
+        public async Task<User?> GetUserByPhoneNumberAsync(string phoneNumber)
+        {
+            return await dbContext.Users.Include(x => x.Role).FirstOrDefaultAsync(x => x.PhoneNumber == phoneNumber);
         }
     }
 }
