@@ -4,9 +4,87 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SkincareApp"
-        mc:Ignorable="d"
-        Title="CustomerDashboardWindow" Height="450" Width="800">
+        mc:Ignorable="d" WindowStartupLocation="CenterScreen" WindowStyle="None" AllowsTransparency="True" Background="Transparent"
+        Height="800" Width="1000">
     <Grid>
-        
+        <Grid>
+            <Image Source="Images/close.png" x:Name="closeBtn" MouseUp="closeBtn_MouseUp" Panel.ZIndex="1"  Style="{StaticResource imgClose}"/>
+            <Image Source="/Images/minimize.png" x:Name="minimizeBtn" MouseUp="minimizeBtn_MouseUp" Panel.ZIndex="1"  Style="{StaticResource imgMinimize}" Margin="0,3,44,0"/>
+
+            <Border MouseDown="Border_MouseDown" Background="#ffffff" CornerRadius="10" BorderBrush="#F08080" BorderThickness="1">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="15*" />
+                    </Grid.ColumnDefinitions>
+
+                    <Border Background="#F08080" CornerRadius="10 0 0 10">
+                        <StackPanel Margin="0 40">
+                            <Border Width="40" Height="40" CornerRadius="4" Background="#fff" Margin="0 12">
+                                <Image Source="/Images/home.png" Width="30" Height="30" />
+                            </Border>
+                            <Border Width="40" Height="40" CornerRadius="4" Background="#fff" Margin="0 12">
+                                <Image Source="/Images/person.png" Width="30" Height="30" />
+                            </Border>
+                            <Border Width="40" Height="40" CornerRadius="4" Background="#fff" Margin="0 12">
+                                <Image Source="/Images/logout.png" Width="30" Height="30" x:Name="logoutBtn" MouseUp="logoutBtn_MouseUp"/>
+                            </Border>
+                        </StackPanel>
+                    </Border>
+
+                    <ScrollViewer Grid.Column="1" VerticalScrollBarVisibility="Hidden" HorizontalScrollBarVisibility="Hidden" x:Name="homeTable">
+                        <Canvas>
+                            <Border Height="200" Canvas.Top="118" Width="200" Canvas.Left="494">
+                                <Image Source="/Images/skincare01.png" Margin="10,72,-63,-138" />
+                            </Border>
+                            <Border Height="200" Canvas.Top="140" Width="200" Canvas.Left="566">
+                                <Image Source="/Images/skincare02.png" Margin="60,249,-142,-302" />
+                            </Border>
+                            <TextBlock Text="SkinCare - Professional Skin Care" Style="{StaticResource titleStyle}" Canvas.Left="128" Canvas.Top="71" HorizontalAlignment="Center" VerticalAlignment="Top" />
+                            <TextBlock Text="SkinCare - Professional Beauty" Style="{StaticResource titleStyle}" FontSize="24" Canvas.Left="97" Canvas.Top="240" HorizontalAlignment="Center" VerticalAlignment="Top" 
+                                       Foreground="#e85858"/>
+                            <TextBlock Text="   Welcome to Skincare! We are proud to be a brand providing professional skin care services and knowledge, bearing the mark of Vietnam. Inspired by the natural beauty and sophistication of Vietnamese people, SkinCare Vietnam is committed to bringing you comprehensive, safe and effective skin care solutions."
+                                       Style="{StaticResource normalText}" Foreground="Black" Canvas.Left="40" Canvas.Top="296" HorizontalAlignment="Center" Height="169" VerticalAlignment="Top" Width="458" TextAlignment="Left"/>
+                            <TextBlock Text="   At Skincare, we believe that every skin is unique and deserves to be cared for in a unique way. Our team of experienced dermatologists are always ready to listen, understand and accompany you on your journey to conquer healthy and beautiful skin. Along with applying advanced technology and quality skin care ingredients, Skincare confidently helps you shine with radiant, vibrant skin."
+                                       Style="{StaticResource normalText}" Foreground="Black" Canvas.Left="40" Canvas.Top="465" HorizontalAlignment="Left" Height="169" VerticalAlignment="Top" Width="458" TextAlignment="Left"/>
+                            <Rectangle Height="49" Fill="#F08080" Width="35" Canvas.Left="57" Canvas.Top="94" RenderTransformOrigin="0.5,0.5" HorizontalAlignment="Left" VerticalAlignment="Top">
+                                <Rectangle.RenderTransform>
+                                    <TransformGroup>
+                                        <ScaleTransform/>
+                                        <SkewTransform/>
+                                        <RotateTransform Angle="41.981"/>
+                                        <TranslateTransform/>
+                                    </TransformGroup>
+                                </Rectangle.RenderTransform>
+                            </Rectangle>
+                            <Rectangle Height="69" Fill="#F08080" Width="55" Canvas.Left="18" Canvas.Top="56" RenderTransformOrigin="0.5,0.5" HorizontalAlignment="Left" VerticalAlignment="Top">
+                                <Rectangle.RenderTransform>
+                                    <TransformGroup>
+                                        <ScaleTransform/>
+                                        <SkewTransform/>
+                                        <RotateTransform Angle="1.847"/>
+                                        <TranslateTransform/>
+                                    </TransformGroup>
+                                </Rectangle.RenderTransform>
+                            </Rectangle>
+                            <Rectangle Height="51" Fill="#F08080" Width="97" Canvas.Left="799" Canvas.Top="679" RenderTransformOrigin="0.5,0.5" HorizontalAlignment="Left" VerticalAlignment="Top">
+                                <Rectangle.RenderTransform>
+                                    <TransformGroup>
+                                        <ScaleTransform/>
+                                        <SkewTransform/>
+                                        <RotateTransform Angle="37.55"/>
+                                        <TranslateTransform/>
+                                    </TransformGroup>
+                                </Rectangle.RenderTransform>
+                            </Rectangle>
+                        </Canvas>
+                    </ScrollViewer>
+
+                    <Canvas Grid.Column="1" Visibility="Collapsed">
+                        
+                    </Canvas>
+                </Grid>
+            </Border>
+        </Grid>
     </Grid>
 </Window>

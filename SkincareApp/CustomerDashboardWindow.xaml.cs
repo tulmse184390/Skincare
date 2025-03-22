@@ -1,27 +1,41 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
+﻿using System.Windows;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace SkincareApp
 {
-    /// <summary>
-    /// Interaction logic for CustomerDashboardWindow.xaml
-    /// </summary>
     public partial class CustomerDashboardWindow : Window
     {
         public CustomerDashboardWindow()
         {
             InitializeComponent();
         }
+
+        // <-- Style start
+        private void closeBtn_MouseUp(object sender, MouseButtonEventArgs e)
+        {
+            Application.Current.Shutdown();
+        }
+
+        private void minimizeBtn_MouseUp(object sender, MouseButtonEventArgs e)
+        {
+            this.WindowState = WindowState.Minimized;
+        }
+
+        private void Border_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (e.ChangedButton == MouseButton.Left)
+            {
+                this.DragMove();
+            }
+        }
+
+        private void logoutBtn_MouseUp(object sender, MouseButtonEventArgs e)
+        {
+            LoginWindow.USER = null;
+            LoginWindow loginWindow = new();
+            loginWindow.Show();
+            this.Close();
+        }
+        // Style end -->
     }
 }
