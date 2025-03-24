@@ -23,7 +23,7 @@
                             <Border Width="40" Height="40" CornerRadius="4" Background="#fff" Margin="0 12">
                                 <Image Source="/Images/home.png" Width="30" Height="30" />
                             </Border>
-                            <Border Width="40" Height="40" CornerRadius="4" Background="#fff" Margin="0 12">
+                            <Border Width="40" Height="40" CornerRadius="4" Background="#fff" Margin="0 12" x:Name="ViewProfile" MouseDown="ViewProfile_MouseUp">
                                 <Image Source="/Images/person.png" Width="30" Height="30" />
                             </Border>
                             <Border Width="40" Height="40" CornerRadius="4" Background="#fff" Margin="0 12">
@@ -32,7 +32,7 @@
                         </StackPanel>
                     </Border>
 
-                    <ScrollViewer Grid.Column="1" VerticalScrollBarVisibility="Hidden" HorizontalScrollBarVisibility="Hidden" x:Name="homeTable">
+                    <ScrollViewer Visibility="Collapsed" Grid.Column="1" VerticalScrollBarVisibility="Hidden" HorizontalScrollBarVisibility="Hidden" x:Name="homeTable">
                         <Canvas>
                             <Border Height="200" Canvas.Top="118" Width="200" Canvas.Left="494">
                                 <Image Source="/Images/skincare01.png" Margin="10,72,-63,-138" />
@@ -80,8 +80,63 @@
                         </Canvas>
                     </ScrollViewer>
 
-                    <Canvas Grid.Column="1" Visibility="Collapsed">
+                    <Canvas Grid.Column="1" x:Name="profileTable">
+                        <TextBlock Text="Your profile" Style="{StaticResource titleStyle}" Canvas.Left="346" Canvas.Top="10" />
+                        <Image Source="/Images/avatar.png" Canvas.Left="64" Canvas.Top="118" Height="137" Width="141" HorizontalAlignment="Left" VerticalAlignment="Top" />
+                        <Label Content="Your Email" Style="{StaticResource normalLabel}" Canvas.Left="280" Canvas.Top="239" Height="30" Width="97" RenderTransformOrigin="0.516,1.094" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                        <Label Content="First Name" Style="{StaticResource normalLabel}" Canvas.Left="280" Canvas.Top="138" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                        <Label Content="Last Name" Style="{StaticResource normalLabel}" Canvas.Left="605" Canvas.Top="138"/>
+                        <Label Content="Phone number" Style="{StaticResource normalLabel}" Canvas.Left="280" Canvas.Top="343" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+                        <Label Content="Gender" Style="{StaticResource normalLabel}" Canvas.Left="605" Canvas.Top="343" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+
+                        <Border BorderThickness="1" BorderBrush="#acb0af" CornerRadius="5" Canvas.Left="280" Canvas.Top="169" HorizontalAlignment="Center" VerticalAlignment="Top" Width="275" Height="35">
+                            <TextBox x:Name="txtProfileFirstName" Style="{StaticResource textBox}" Text="Your first name" VerticalContentAlignment="Center" Margin="10,0,9,0" IsEnabled="False"/>
+                        </Border>
+
+                        <Border BorderThickness="1" BorderBrush="#acb0af" CornerRadius="5" Canvas.Left="605" Canvas.Top="169" HorizontalAlignment="Left" VerticalAlignment="Center" Width="275" Height="35">
+                            <TextBox x:Name="txtProfileLastName" Style="{StaticResource textBox}" Text="Your last name" VerticalContentAlignment="Center" Margin="10,0,9,0"/>
+                        </Border>
+
+                        <Border BorderThickness="1" BorderBrush="#acb0af" CornerRadius="5" Canvas.Left="280" Canvas.Top="274" HorizontalAlignment="Left" VerticalAlignment="Center" Width="600" Height="35">
+                            <TextBox x:Name="txtProfileEmail" Text="Youremail@email.com" Style="{StaticResource textBox}" VerticalContentAlignment="Center" Margin="10,0,9,0" IsEnabled="False"/>
+                        </Border>
+
+                        <Border BorderThickness="1" BorderBrush="#acb0af" CornerRadius="5" Canvas.Left="280" Canvas.Top="374" HorizontalAlignment="Center" VerticalAlignment="Top" Width="275" Height="35">
+                            <TextBox x:Name="txtProfilePhoneNumber" Style="{StaticResource textBox}" Text="Your phone number" VerticalContentAlignment="Center" Margin="10,0,9,0" IsEnabled="False"/>
+                        </Border>
+
+                        <Border BorderThickness="1" BorderBrush="#acb0af" CornerRadius="5" HorizontalAlignment="Left" VerticalAlignment="Center" Width="137" Height="35" Canvas.Left="605" Canvas.Top="374">
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="4 0" x:Name="txtProfileGender" IsEnabled="False">
+                                <RadioButton x:Name="Male" Content="Male" GroupName="Gender" />
+                                <RadioButton x:Name="Female" Content="Female" GroupName="Gender" Margin="20,0,0,0"/>
+                            </StackPanel>
+                        </Border>
+
+                        <Label Content="Your Password" Style="{StaticResource normalLabel}" Canvas.Left="280" Canvas.Top="454" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+
+                        <Border BorderThickness="1" BorderBrush="#acb0af" CornerRadius="5" Canvas.Left="418" Canvas.Top="449" HorizontalAlignment="Left" VerticalAlignment="Center" Width="353" Height="35">
+                            <PasswordBox x:Name="txtOldProfilePass" Style="{StaticResource textBox}" Password="Your password" VerticalAlignment="Center" IsEnabled="False"/>
+                        </Border>
+
+                        <Canvas x:Name="NewPasswordContainer" Canvas.Left="280" Visibility="Collapsed" Canvas.Top="489" Height="87" Width="491" HorizontalAlignment="Left" VerticalAlignment="Center" >
+                            <Label Content="New Password" Style="{StaticResource normalLabel}" HorizontalAlignment="Center" VerticalAlignment="Top" Canvas.Top="5"/>
+                            <Label Content="Confirm Password" Style="{StaticResource normalLabel}" HorizontalAlignment="Center" VerticalAlignment="Top" Canvas.Top="45"/>
+
+                            <Border BorderThickness="1" BorderBrush="#acb0af" CornerRadius="5" HorizontalAlignment="Left" VerticalAlignment="Center" Width="353" Height="35" Canvas.Left="138">
+                                <PasswordBox x:Name="txtNewProfilePass" Style="{StaticResource textBox}" VerticalAlignment="Center"/>
+                            </Border>
+                            <Border BorderThickness="1" BorderBrush="#acb0af" CornerRadius="5"  HorizontalAlignment="Left" VerticalAlignment="Center" Width="353" Height="35" Canvas.Left="138" Canvas.Top="40">
+                                <PasswordBox x:Name="txtConfirmProfilePass" Style="{StaticResource textBox}" VerticalAlignment="Center"/>
+                            </Border>
+
+                        </Canvas>
+
+                        <Button x:Name="ChangePasswordBtn" Click="ChangePasswordBtn_Click" Content="Change Password" Style="{StaticResource normalButton03}" Canvas.Left="806" Canvas.Top="451"/>
+                        <Button x:Name="SavePasswordBtn" Click="SavePasswordBtn_Click" Content="Save Password" Visibility="Collapsed" Style="{StaticResource normalButton02}" Canvas.Left="806" Canvas.Top="489" />
+                        <Button x:Name="CancelPasswordBtn" Click="CancelPasswordBtn_Click" Content="Cancel" Visibility="Collapsed" Style="{StaticResource normalButton03}" Canvas.Left="806" Canvas.Top="527" HorizontalAlignment="Center" VerticalAlignment="Top" />
                         
+                        <Button x:Name="editProfileBtn" Click="editProfileBtn_Click" Content="Edit profile" Style="{StaticResource normalButton03}" Canvas.Left="72" Canvas.Top="292"/>
+                        <Button x:Name="saveProfileBtn" Click="saveProfileBtn_Click" Content="Save profile" Style="{StaticResource normalButton02}" Canvas.Left="72" Canvas.Top="336" HorizontalAlignment="Center" VerticalAlignment="Top" IsEnabled="False"/>
                     </Canvas>
                 </Grid>
             </Border>

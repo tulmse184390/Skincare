@@ -21,7 +21,7 @@ namespace SkincareApp
         {
             var email = txtEmail.Text;
             var password = txtPassword.Password;
-            var user = await userService.Login(email, password);
+            var user = await userService.LoginAsync(email, password);
             if (user == null)
             {
                 MessageBox.Show("Email or password is invalid!");

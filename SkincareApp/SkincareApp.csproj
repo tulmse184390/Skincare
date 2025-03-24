@@ -9,6 +9,8 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Images\avatar.png" />
+    <None Remove="Images\calendar.png" />
     <None Remove="Images\close.png" />
     <None Remove="Images\home.png" />
     <None Remove="Images\image.png" />
@@ -20,6 +22,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Content Include="Images\avatar.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\calendar.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Images\close.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

@@ -48,7 +48,7 @@ namespace SkincareApp
                     Status = "Active"
                 };
 
-                await userService.Register(newUser);
+                await userService.RegisterAsync(newUser);
                 MessageBox.Show("Register successfully");
                 LoginWindow loginWindow = new();
                 loginWindow.Show();

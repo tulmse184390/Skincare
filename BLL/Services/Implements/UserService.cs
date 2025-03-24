@@ -15,7 +15,7 @@ namespace BLL.Services.Implements
             userRepository = new UserRepository();
         }
 
-        public async Task<User?> Login(string email, string password)
+        public async Task<User?> LoginAsync(string email, string password)
         {
             var user = await userRepository.GetUserByEmailAsync(email);
             if (user == null || user.Password != password || user.Status == "Inactive")
@@ -25,7 +25,7 @@ namespace BLL.Services.Implements
             return user;
         }
 
-        public async Task<User?> Register(User user)
+        public async Task<User?> RegisterAsync(User user)
         {
             var emailPattern = @"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$";
             var phoneNumberPattern = @"^0\d{9}$";
@@ -52,6 +52,22 @@ namespace BLL.Services.Implements
             }
 
             return await userRepository.AddUserAsync(user);
+        }
+
+        public async Task<User?> UpdateProfileAsync(User updateUser)
+        {
+            return await userRepository.UpdateUserAsync(updateUser);
+        }
+
+        public async Task<User?> ChangePasswordAsync(string userEmail, string password)
+        {
+            var user = await userRepository.GetUserByEmailAsync(userEmail);
+            if (user != null)
+            {
+                user.Password = password;
+                return await userRepository.UpdateUserAsync(user);
+            }
+            return null;
         }
     }
 }

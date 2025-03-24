@@ -92,5 +92,23 @@
                 </Setter.Value>
             </Setter>
         </Style>
+
+        <Style x:Key="normalButton03" TargetType="Button">
+            <Setter Property="FontSize" Value="14" />
+            <Setter Property="Width" Value="120" />
+            <Setter Property="Margin" Value="0 4" />
+            <Setter Property="Background" Value="#fdfefe" />
+            <Setter Property="Foreground" Value="Black" />
+            <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border CornerRadius="4" BorderThickness="1" BorderBrush="Black" Padding="4" Background="{TemplateBinding Background}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
     </Application.Resources>
 </Application>
