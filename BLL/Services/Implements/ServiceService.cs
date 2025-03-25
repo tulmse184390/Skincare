@@ -14,9 +14,11 @@ namespace BLL.Services.Implements
             serviceRepository = new ServiceRepository();
         }
 
-        public async Task<List<Service>> GetServicesAsync(string serviceName)
+        public async Task<List<Service>> GetServicesAsync(string serviceName, string status)
         {
-            return await serviceRepository.GetServicesAsync(serviceName);
+            var list = await serviceRepository.GetServicesAsync(serviceName);
+            list = list.Where(x => x.Status.ToLower() == status.ToLower()).ToList();
+            return list;
         }
 
         public Task<bool> DisableServiceAsync(int serviceId)

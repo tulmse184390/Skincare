@@ -14,9 +14,16 @@ namespace DAL.Repositories.Implements
             dbContext = new();
         }
 
-        public async Task<List<Appointment>> GetAppointmentsAsync(int userId, DateTime startTime, DateTime toTime)
+        public async Task<Appointment> AddAppointmentAsync(Appointment appointment)
         {
-            return await dbContext.Appointments.Where(x =>x.UserId == userId && x.StartTime >= startTime && x.StartTime <= toTime)
+            await dbContext.Appointments.AddAsync(appointment);
+            await dbContext.SaveChangesAsync();
+            return appointment;
+        }
+
+        public async Task<List<Appointment>> GetAppointmentsAsync(int userId)
+        {
+            return await dbContext.Appointments.Where(x =>x.UserId == userId)
                                                .Include(x => x.AppointmentDetails)
                                                .ToListAsync();
         }

@@ -4,6 +4,7 @@ using DAL.Entities;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
 
 namespace SkincareApp
@@ -11,22 +12,187 @@ namespace SkincareApp
     public partial class CustomerDashboardWindow : Window
     {
         private IUserService userService;
+        private IServiceService serviceService;
+        private IAppointmentService appointmentService;
+        private IAppointmentDetailService appointmentDetailService;
+        private List<Service> tmpServices;
 
         public CustomerDashboardWindow()
         {
             userService = new UserService();
+            serviceService = new ServiceService();
+            appointmentService = new AppointmentService();
+            appointmentDetailService = new AppointmentDetailService();
+            tmpServices = new();
             InitializeComponent();
+            LoadCalendar(2025, 3);
         }
+
+        // <-- List services logic start
+        private void selectService_Click(object sender, RoutedEventArgs e)
+        {
+            Button? btn = sender as Button;
+            if (btn?.Tag is Service service)
+            {
+                if (!tmpServices.Contains(service))
+                {
+                    tmpServices.Add(service);
+                }
+                else
+                {
+                    MessageBox.Show("You have already selected this service!");
+                }
+            }
+        }
+
+        private async void searchBtn_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (txtNameService.Text != null)
+            {
+                listServices.ItemsSource = await serviceService.GetServicesAsync(txtNameService.Text, "Active");
+            }
+        }
+        // List services logic end -->
+
+        // <-- Booking logic start
+        private void bookingTime_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            e.Handled = true;
+        }
+
+        private void deleteBookingService_Click(object sender, RoutedEventArgs e)
+        {
+            Button? btn = sender as Button;
+            if (btn?.Tag is Service service)
+            {
+                if (tmpServices.Contains(service))
+                {
+                    tmpServices.Remove(service);
+                }
+            }
+            listBookingServices.Items.Refresh();
+            tmpTotal.Text = $"Total: \t{CaculateTotal()} $";
+        }
+
+        private decimal CaculateTotal()
+        {
+            decimal total = 0;
+            foreach (var s in tmpServices)
+            {
+                total += s.Price;
+            }
+            return total;
+        }
+
+        private async void Booking_Click(object sender, RoutedEventArgs e)
+        {
+            if (LoginWindow.USER != null)
+            {
+                if (tmpServices.Count == 0)
+                {
+                    MessageBox.Show("Please select service!");
+                    return;
+                }
+                var day = bookingDay.SelectedDate;
+                var time = bookingTime.SelectedTime;
+
+                if (time == null || day == null)
+                {
+                    MessageBox.Show("Please choose a valid time!");
+                    return;
+                }
+                DateTime bookingDate = day.Value.Date.Add(time.Value.TimeOfDay);
+
+                if (bookingDate <= DateTime.Now)
+                {
+                    MessageBox.Show("Please choose a valid time!");
+                    return;
+                }
+
+                if (await appointmentService.IsValidBookingAsync(LoginWindow.USER.UserId, bookingDate))
+                {
+                    var endTime = CaculateEndtime(bookingDate, tmpServices);
+                    if (endTime.TimeOfDay >= TimeSpan.FromHours(21) || endTime.Date > bookingDate.Date)
+                    {
+                        MessageBox.Show("Please remove selected services or schedule another time as we do not serve past 9pm!");
+                        return;
+                    }
+                    var tmpAppoitment = new Appointment()
+                    {
+                        UserId = LoginWindow.USER.UserId,
+                        Total = CaculateTotal(),
+                        StartTime = bookingDate,
+                        EndTime = endTime,
+                        CreateDate = DateTime.Now,
+                        Status = "Pending"
+                    };
+                    tmpAppoitment = await appointmentService.AddAppointmentAsync(tmpAppoitment);
+
+                    foreach (var s in tmpServices)
+                    {
+                        var tmpAppointmentDetail = new AppointmentDetail()
+                        {
+                            AppointmentId = tmpAppoitment.AppointmentId,
+                            ServiceId = s.ServiceId
+                        };
+                        await appointmentDetailService.AddAppointmentDetailAsync(tmpAppointmentDetail);
+                    }
+                    tmpServices.Clear();
+                    MessageBox.Show("Booking successfully!");
+                    listBookingServices.Items.Refresh();
+                    
+                }
+            }
+        }
+
+        private DateTime CaculateEndtime(DateTime startTime, List<Service> services)
+        {
+            foreach (var s in services)
+            {
+                startTime = startTime.AddMinutes(s.Duration + 10);
+            }
+
+            return startTime;
+        }
+        // Booking logic end -->
+
+        // <-- Calendar table logic start
+        private void LoadCalendar(int year, int month)
+        {
+            Calendar.Children.Clear();
+
+            DateTime firstDay = new DateTime(year, month, 1);
+            int daysInMonth = DateTime.DaysInMonth(year, month);
+
+            int startDay = (int)firstDay.DayOfWeek;
+
+            if (startDay == 0) startDay = 7;
+
+            for (int i = 1; i < startDay; i++)
+            {
+                Calendar.Children.Add(new Border { Background = null });
+            }
+
+            for (int day = 1; day <= daysInMonth; day++)
+            {
+                Border border = new Border
+                {
+                    BorderBrush = System.Windows.Media.Brushes.Black,
+                    BorderThickness = new Thickness(1),
+                    Child = new TextBlock
+                    {
+                        Text = day.ToString(),
+                        HorizontalAlignment = HorizontalAlignment.Center,
+                        VerticalAlignment = VerticalAlignment.Center
+                    }
+                };
+
+                Calendar.Children.Add(border);
+            }
+        }
+        // Calendar table logic end -->
 
         // <-- Profile table logic start
-        private void ViewProfile_MouseUp(object sender, MouseButtonEventArgs e)
-        {
-            homeTable.Visibility = Visibility.Collapsed;
-            profileTable.Visibility = Visibility.Visible;
-            LoadProfile();
-            UnactiveTextBox();
-        }
-
         private void editProfileBtn_Click(object sender, RoutedEventArgs e)
         {
             ActiveTextBox();
@@ -192,6 +358,60 @@ namespace SkincareApp
         // Profile table logic end -->
 
         // <-- Style start
+        private void ViewHomePage_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            homeTable.Visibility = Visibility.Visible;
+            servicesTable.Visibility = Visibility.Collapsed;
+            bookingTable.Visibility = Visibility.Collapsed;
+            Calendar.Visibility = Visibility.Collapsed;
+            profileTable.Visibility = Visibility.Collapsed;
+        }
+
+        private async void viewListServices_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            homeTable.Visibility = Visibility.Collapsed;
+            servicesTable.Visibility = Visibility.Visible;
+            bookingTable.Visibility = Visibility.Collapsed;
+            Calendar.Visibility = Visibility.Collapsed;
+            profileTable.Visibility = Visibility.Collapsed;
+
+            listServices.ItemsSource = await serviceService.GetServicesAsync("", "Active");
+        }
+
+        private void viewBooking_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            homeTable.Visibility = Visibility.Collapsed;
+            servicesTable.Visibility = Visibility.Collapsed;
+            bookingTable.Visibility = Visibility.Visible;
+            Calendar.Visibility = Visibility.Collapsed;
+            profileTable.Visibility = Visibility.Collapsed;
+
+            listBookingServices.ItemsSource = tmpServices;
+            listBookingServices.Items.Refresh();
+            tmpTotal.Text = $"Total: \t{CaculateTotal()} $";
+        }
+
+        private void ViewCalendar_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            homeTable.Visibility = Visibility.Collapsed;
+            servicesTable.Visibility = Visibility.Collapsed;
+            bookingTable.Visibility = Visibility.Collapsed;
+            Calendar.Visibility = Visibility.Visible;
+            profileTable.Visibility = Visibility.Collapsed;
+        }
+
+        private void ViewProfile_MouseUp(object sender, MouseButtonEventArgs e)
+        {
+            homeTable.Visibility = Visibility.Collapsed;
+            servicesTable.Visibility = Visibility.Collapsed;
+            bookingTable.Visibility = Visibility.Collapsed;
+            Calendar.Visibility = Visibility.Collapsed;
+            profileTable.Visibility = Visibility.Visible;
+
+            LoadProfile();
+            UnactiveTextBox();
+        }
+
         private void closeBtn_MouseUp(object sender, MouseButtonEventArgs e)
         {
             Application.Current.Shutdown();
@@ -216,6 +436,23 @@ namespace SkincareApp
             LoginWindow loginWindow = new();
             loginWindow.Show();
             this.Close();
+        }
+
+        private void textNameService_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            txtNameService.Focus();
+        }
+
+        private void txtNameService_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (!string.IsNullOrEmpty(txtNameService.Text) && txtNameService.Text.Length > 0)
+            {
+                textNameService.Visibility = Visibility.Collapsed;
+            }
+            else
+            {
+                textNameService.Visibility = Visibility.Visible;
+            }
         }
         // Style end -->
     }
