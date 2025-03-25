@@ -42,7 +42,7 @@
                         </StackPanel>
                     </Border>
 
-                    <ScrollViewer Grid.Column="1" VerticalScrollBarVisibility="Hidden" HorizontalScrollBarVisibility="Hidden" x:Name="homeTable">
+                    <ScrollViewer Visibility="Collapsed" Grid.Column="1" VerticalScrollBarVisibility="Hidden" HorizontalScrollBarVisibility="Hidden" x:Name="homeTable">
                         <Canvas>
                             <Border Height="200" Canvas.Top="118" Width="200" Canvas.Left="494">
                                 <Image Source="/Images/skincare01.png" Margin="10,72,-63,-138" />
@@ -184,7 +184,12 @@
                         </ListBox>
                     </Grid>
 
-                    <UniformGrid Visibility="Collapsed" x:Name="Calendar" Columns="7" Rows="6" Grid.Column="1"/>
+                    <Grid x:Name="appointmentTable" Grid.Column="1" >
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="5*" />
+                        </Grid.RowDefinitions>
+                    </Grid>
 
                     <Canvas Visibility="Collapsed" Grid.Column="1" x:Name="profileTable">
                         <TextBlock Text="Your profile" Style="{StaticResource titleStyle}" Canvas.Left="346" Canvas.Top="10" />

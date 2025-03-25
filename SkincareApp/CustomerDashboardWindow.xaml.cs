@@ -25,7 +25,6 @@ namespace SkincareApp
             appointmentDetailService = new AppointmentDetailService();
             tmpServices = new();
             InitializeComponent();
-            LoadCalendar(2025, 3);
         }
 
         // <-- List services logic start
@@ -140,7 +139,7 @@ namespace SkincareApp
                     tmpServices.Clear();
                     MessageBox.Show("Booking successfully!");
                     listBookingServices.Items.Refresh();
-                    
+
                 }
             }
         }
@@ -155,42 +154,6 @@ namespace SkincareApp
             return startTime;
         }
         // Booking logic end -->
-
-        // <-- Calendar table logic start
-        private void LoadCalendar(int year, int month)
-        {
-            Calendar.Children.Clear();
-
-            DateTime firstDay = new DateTime(year, month, 1);
-            int daysInMonth = DateTime.DaysInMonth(year, month);
-
-            int startDay = (int)firstDay.DayOfWeek;
-
-            if (startDay == 0) startDay = 7;
-
-            for (int i = 1; i < startDay; i++)
-            {
-                Calendar.Children.Add(new Border { Background = null });
-            }
-
-            for (int day = 1; day <= daysInMonth; day++)
-            {
-                Border border = new Border
-                {
-                    BorderBrush = System.Windows.Media.Brushes.Black,
-                    BorderThickness = new Thickness(1),
-                    Child = new TextBlock
-                    {
-                        Text = day.ToString(),
-                        HorizontalAlignment = HorizontalAlignment.Center,
-                        VerticalAlignment = VerticalAlignment.Center
-                    }
-                };
-
-                Calendar.Children.Add(border);
-            }
-        }
-        // Calendar table logic end -->
 
         // <-- Profile table logic start
         private void editProfileBtn_Click(object sender, RoutedEventArgs e)
@@ -363,7 +326,7 @@ namespace SkincareApp
             homeTable.Visibility = Visibility.Visible;
             servicesTable.Visibility = Visibility.Collapsed;
             bookingTable.Visibility = Visibility.Collapsed;
-            Calendar.Visibility = Visibility.Collapsed;
+            appointmentTable.Visibility = Visibility.Collapsed;
             profileTable.Visibility = Visibility.Collapsed;
         }
 
@@ -372,7 +335,7 @@ namespace SkincareApp
             homeTable.Visibility = Visibility.Collapsed;
             servicesTable.Visibility = Visibility.Visible;
             bookingTable.Visibility = Visibility.Collapsed;
-            Calendar.Visibility = Visibility.Collapsed;
+            appointmentTable.Visibility = Visibility.Collapsed;
             profileTable.Visibility = Visibility.Collapsed;
 
             listServices.ItemsSource = await serviceService.GetServicesAsync("", "Active");
@@ -383,7 +346,7 @@ namespace SkincareApp
             homeTable.Visibility = Visibility.Collapsed;
             servicesTable.Visibility = Visibility.Collapsed;
             bookingTable.Visibility = Visibility.Visible;
-            Calendar.Visibility = Visibility.Collapsed;
+            appointmentTable.Visibility = Visibility.Collapsed;
             profileTable.Visibility = Visibility.Collapsed;
 
             listBookingServices.ItemsSource = tmpServices;
@@ -396,7 +359,7 @@ namespace SkincareApp
             homeTable.Visibility = Visibility.Collapsed;
             servicesTable.Visibility = Visibility.Collapsed;
             bookingTable.Visibility = Visibility.Collapsed;
-            Calendar.Visibility = Visibility.Visible;
+            appointmentTable.Visibility = Visibility.Visible;
             profileTable.Visibility = Visibility.Collapsed;
         }
 
@@ -405,7 +368,7 @@ namespace SkincareApp
             homeTable.Visibility = Visibility.Collapsed;
             servicesTable.Visibility = Visibility.Collapsed;
             bookingTable.Visibility = Visibility.Collapsed;
-            Calendar.Visibility = Visibility.Collapsed;
+            appointmentTable.Visibility = Visibility.Collapsed;
             profileTable.Visibility = Visibility.Visible;
 
             LoadProfile();
