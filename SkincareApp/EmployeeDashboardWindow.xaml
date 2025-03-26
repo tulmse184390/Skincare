@@ -31,7 +31,7 @@
                         <Button x:Name="btnAdd" Content="Add" Style="{StaticResource normalButton}" IsEnabled="False"/>
                         <Button x:Name="btnUpdate" Content="Update" Style="{StaticResource normalButton}" IsEnabled="False"/>
                         <Button x:Name="btnDelete" Content="Delete" Style="{StaticResource normalButton}" IsEnabled="False"/>
-                        <Button x:Name="btnLogout" Content="Logout" Style="{StaticResource normalButton}" IsEnabled="False"/>
+                        <Button x:Name="btnLogout" Content="Logout" Style="{StaticResource normalButton}" Click="btnLogout_Click"/>
                     </StackPanel>
                 </Border>
                 <Canvas Grid.Column="1">

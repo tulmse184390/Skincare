@@ -2,11 +2,11 @@
 using DAL.Entities;
 using DAL.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
+using System.Diagnostics;
 
 namespace DAL.Repositories.Implements
 {
-    public class ServiceRepository : IServiceRepository
-    {
+    public class ServiceRepository : IServiceRepository {
         private readonly SkinCareContext dbContext;
 
         public ServiceRepository()
@@ -34,6 +34,30 @@ namespace DAL.Repositories.Implements
             await dbContext.SaveChangesAsync();
 
             return true;
+        }
+
+        public async Task AddService(Service service) {
+            dbContext.Services.Add(service);
+            await dbContext.SaveChangesAsync();
+        }
+
+        public Service GetService(string serviceName) {
+            Debug.WriteLine(serviceName);
+            return dbContext.Services.FirstOrDefault(x => x.ServiceName.Equals(serviceName));
+        }
+
+        public Service GetServiceById(int serviceId) {
+            return dbContext.Services.FirstOrDefault(x => x.ServiceId == serviceId);
+        }
+
+        public void UpdateSerive(Service service) {
+            dbContext.Services.Update(service);
+            dbContext.SaveChanges();
+        }
+
+        public void DeleteService(Service service) {
+            dbContext.Services.Remove(service);
+            dbContext.SaveChanges();
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -38,19 +39,61 @@ namespace SkincareApp
         }
 
         private void btnAdd_Click(object sender, RoutedEventArgs e) {
+            try {
+                var service = new Service {
+                    ServiceName = serviceNameTxt.Text,
+                    Duration = int.Parse(serviceDurationTxt.Text),
+                    Price = decimal.Parse(servicePriceTxt.Text),
+                    Status = serviceStatusTxt.Text,
+                    Description = serviceDescTxt.Text
+                };
 
+                Debug.WriteLine(service.ServiceName);
+
+                var result = _serviceService.AddService(service);
+                if (result) {
+                    MessageBox.Show("Add service successfully!");
+                    LoadServices();
+                } else {
+                    MessageBox.Show("Service name is already exist!");
+                }
+
+            } catch (Exception ex) {
+                MessageBox.Show(ex.Message);
+            }
         }
 
         private void btnUpdate_Click(object sender, RoutedEventArgs e) {
+            try {
+                var service = new Service {
+                    ServiceId = int.Parse(serviceIdTxt.Text),
+                    ServiceName = serviceNameTxt.Text,
+                    Duration = int.Parse(serviceDurationTxt.Text),
+                    Price = decimal.Parse(servicePriceTxt.Text),
+                    Status = serviceStatusTxt.Text,
+                    Description = serviceDescTxt.Text
+                };
 
+                _serviceService.UpdateService(service);
+                MessageBox.Show("Update service successfully!");
+                LoadServices();
+
+            } catch (Exception ex) {
+                MessageBox.Show(ex.Message);
+            }
         }
 
         private void btnDelete_Click(object sender, RoutedEventArgs e) {
-
+            var serviceId = int.Parse(serviceIdTxt.Text);
+            _serviceService.DeleteService(serviceId);
+            MessageBox.Show("Delete service successfully!");
+            LoadServices();
         }
 
         private void btnLogout_Click(object sender, RoutedEventArgs e) {
-
+            LoginWindow loginWindow = new LoginWindow();
+            loginWindow.Show();
+            this.Close();
         }
 
         private void dataServices_SelectionChanged(object sender, SelectionChangedEventArgs e) {

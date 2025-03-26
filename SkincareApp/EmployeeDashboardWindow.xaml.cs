@@ -54,5 +54,11 @@ namespace SkincareApp
                 serviceDescTxt.Text = "";
             }
         }
+
+        private void btnLogout_Click(object sender, RoutedEventArgs e) {
+            LoginWindow loginWindow = new LoginWindow();
+            loginWindow.Show();
+            this.Close();
+        }
     }
 }
