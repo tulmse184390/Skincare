@@ -5,8 +5,56 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SkincareApp"
         mc:Ignorable="d"
-        Title="AdminDashboardWindow" Height="450" Width="800">
+        Title="AdminDashboardWindow" Height="550" Width="800" WindowStartupLocation="CenterScreen">
     <Grid>
-        
+        <Border Background="#ffffff" CornerRadius="10" BorderBrush="#F08080" BorderThickness="1">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="2*" />
+                </Grid.ColumnDefinitions>
+
+                <Border Background="#F08080" CornerRadius="10 0 0 10">
+                    <StackPanel Margin="0 40">
+                        <Label Content="Service ID" FontWeight="Bold"/>
+                        <TextBox x:Name="serviceIdTxt" IsEnabled="False"/>
+                        <Label Content="Service Name" FontWeight="Bold"/>
+                        <TextBox x:Name="serviceNameTxt"/>
+                        <Label Content="Service Duration" FontWeight="Bold"/>
+                        <TextBox x:Name="serviceDurationTxt"/>
+                        <Label Content="Service Price" FontWeight="Bold"/>
+                        <TextBox x:Name="servicePriceTxt"/>
+                        <Label Content="Service Status" FontWeight="Bold"/>
+                        <TextBox x:Name="serviceStatusTxt"/>
+                        <Label Content="Service Description" FontWeight="Bold"/>
+                        <TextBox x:Name="serviceDescTxt"/>
+                        <Button x:Name="btnAdd" Content="Add" Style="{StaticResource normalButton}" Click="btnAdd_Click" />
+                        <Button x:Name="btnUpdate" Content="Update" Style="{StaticResource normalButton}" Click="btnUpdate_Click"/>
+                        <Button x:Name="btnDelete" Content="Delete" Style="{StaticResource normalButton}" Click="btnDelete_Click"/>
+                        <Button x:Name="btnLogout" Content="Logout" Style="{StaticResource normalButton}" Click="btnLogout_Click"/>
+                    </StackPanel>
+                </Border>
+                <Canvas Grid.Column="1">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+
+                        <TextBlock Text="Data" Style="{StaticResource titleStyle}" VerticalAlignment="Center" HorizontalAlignment="Center" Width="532"/>
+                        <DataGrid x:Name="dataServices" Grid.Row="1" AutoGenerateColumns="False" SelectionChanged="dataServices_SelectionChanged" >
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="ID" Binding="{Binding ServiceId}"/>
+                                <DataGridTextColumn Header="Name" Binding="{Binding ServiceName}"/>
+                                <DataGridTextColumn Header="Duration" Binding="{Binding Duration}"/>
+                                <DataGridTextColumn Header="Price" Binding="{Binding Price}"/>
+                                <DataGridTextColumn Header="Status" Binding="{Binding Status}"/>
+                                <DataGridTextColumn Header="Description" Binding="{Binding Description}"/>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </Grid>
+                </Canvas>
+            </Grid>
+        </Border>
     </Grid>
 </Window>

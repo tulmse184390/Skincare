@@ -19,6 +19,10 @@ namespace DAL.Repositories.Implements
             return await dbContext.Services.Where(x => x.ServiceName.ToLower().Contains(serviceName.ToLower())).ToListAsync();
         }
 
+        public List<Service> GetAllServices() {
+            return dbContext.Services.ToList();
+        }
+
         public async Task<bool> DisableServiceAsync(int serviceId)
         {
             var tmpService = await dbContext.Services.FirstOrDefaultAsync(x => x.ServiceId == serviceId);

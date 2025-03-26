@@ -6,5 +6,7 @@ namespace DAL.Repositories.Interfaces
     {
         Task<List<Service>> GetServicesAsync(string serviceName);
         Task<bool> DisableServiceAsync(int serviceId);
+
+        List<Service> GetAllServices();
     }
 }

@@ -36,11 +36,11 @@ namespace SkincareApp
                         customerDashboard.Show();
                         break;
                     case "Admin":
-                        CustomerDashboardWindow adminDashboard = new();
+                        AdminDashboardWindow adminDashboard = new();
                         adminDashboard.Show();
                         break;
                     case "Employee":
-                        CustomerDashboardWindow employeeDashboard = new();
+                        EmployeeDashboardWindow employeeDashboard = new();
                         employeeDashboard.Show();
                         break;
                     default:

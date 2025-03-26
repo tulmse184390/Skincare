@@ -21,6 +21,10 @@ namespace BLL.Services.Implements
             return list;
         }
 
+        public List<Service> GetAllServices() {
+            return serviceRepository.GetAllServices();
+        }
+
         public Task<bool> DisableServiceAsync(int serviceId)
         {
             throw new NotImplementedException();
