@@ -6,5 +6,6 @@ namespace BLL.Services.Interfaces
     {
         Task<List<Service>> GetServicesAsync(string serviceName, string status);
         Task<bool> DisableServiceAsync(int serviceId);
+        List<Service> GetAllServices();
     }
 }
