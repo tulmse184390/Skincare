@@ -28,6 +28,31 @@ namespace SkincareApp
         }
 
         // <-- Calendar logic start 
+        private async void cancelAppointmentBtn_Click(object sender, RoutedEventArgs e)
+        {
+            Button? btn = sender as Button;
+            if (btn != null)
+            {
+                if (btn.Tag is Appointment appointment)
+                {
+                    if ((appointment.StartTime - DateTime.Now).Duration() <= TimeSpan.FromHours(24))
+                    {
+                        MessageBox.Show("You can't cancel this appoitment!");
+                    }
+                    else
+                    {
+                        MessageBoxResult result = MessageBox.Show("Do you want to cancel this appoitment ?", "Caution", MessageBoxButton.YesNo);
+                        if (result == MessageBoxResult.Yes)
+                        {
+                            await appointmentService.ChangeAppoitmentStatusAsync(appointment, "Canceled");
+                            MessageBox.Show("Cancel appoitment successfully!");
+                            LoadUserAppointment();
+                        }
+                    }
+                }
+            }
+        }
+
         private async void LoadUserAppointment()
         {
             if (LoginWindow.USER != null)
@@ -151,7 +176,7 @@ namespace SkincareApp
                     tmpServices.Clear();
                     MessageBox.Show("Booking successfully!");
                     listBookingServices.Items.Refresh();
-
+                    tmpTotal.Text = $"Total: \t{CaculateTotal()} $";
                 }
             }
         }
@@ -230,7 +255,7 @@ namespace SkincareApp
         {
             if (ConfirmPassword() && LoginWindow.USER != null)
             {
-                await userService.ChangePasswordAsync(LoginWindow.USER.Email, txtNewProfilePass.Password);
+                LoginWindow.USER = await userService.ChangePasswordAsync(LoginWindow.USER.Email, txtNewProfilePass.Password);
                 FinishManagePassword();
             }
         }

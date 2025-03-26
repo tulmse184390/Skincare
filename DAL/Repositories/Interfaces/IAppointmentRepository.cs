@@ -6,5 +6,6 @@ namespace DAL.Repositories.Interfaces
     {
         Task<List<Appointment>> GetAppointmentsAsync(int userId);
         Task<Appointment> AddAppointmentAsync(Appointment appointment);
+        Task<Appointment?> UpdateAppointmentAsync(Appointment appointment);
     }
 }

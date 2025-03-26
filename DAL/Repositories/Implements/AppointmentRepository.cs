@@ -28,5 +28,21 @@ namespace DAL.Repositories.Implements
                                                .ThenInclude(t => t.Service)
                                                .ToListAsync();
         }
+
+        public async Task<Appointment?> UpdateAppointmentAsync(Appointment appointment)
+        {
+            var tmp = await dbContext.Appointments.FirstOrDefaultAsync(x => x.AppointmentId == appointment.AppointmentId);
+            if (tmp == null)
+            {
+                return null;
+            }
+            tmp.StartTime = appointment.StartTime;
+            tmp.EndTime = appointment.EndTime;
+            tmp.Total = appointment.Total;
+            tmp.Status = appointment.Status;
+
+            await dbContext.SaveChangesAsync();
+            return appointment;
+        }
     }
 }

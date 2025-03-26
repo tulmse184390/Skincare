@@ -19,6 +19,12 @@ namespace BLL.Services.Implements
             return await appointmentRepository.AddAppointmentAsync(appointment);
         }
 
+        public async Task<Appointment?> ChangeAppoitmentStatusAsync(Appointment appointment, string status)
+        {
+            appointment.Status = status;
+            return await appointmentRepository.UpdateAppointmentAsync(appointment);
+        }
+
         public async Task<List<Appointment>> GetAppointmentsAsync(int userId)
         {
             return await appointmentRepository.GetAppointmentsAsync(userId);

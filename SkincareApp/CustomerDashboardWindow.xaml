@@ -174,7 +174,7 @@
                                             </StackPanel>
                                             <StackPanel HorizontalAlignment="Center"  Grid.Column="2">
                                                 <TextBlock Text="{Binding Duration, StringFormat=Duration: {0} minute}" Style="{StaticResource normalText}" Foreground="Black" FontSize="12" />
-                                                <TextBlock Text="{Binding Price, StringFormat={}{0}.00 $}" Style="{StaticResource normalText}" Foreground="Black" FontSize="12"/>
+                                                <TextBlock Text="{Binding Price, StringFormat={}{0} $}" Style="{StaticResource normalText}" Foreground="Black" FontSize="12"/>
                                                 <Button x:Name="deleteBookingService" Click="deleteBookingService_Click" Tag="{Binding}" Style="{StaticResource normalButton02}" Content="Delete"/>
                                             </StackPanel>
                                         </Grid>
@@ -232,7 +232,7 @@
                                                             </ScrollViewer>
                                                             <TextBlock Text="{Binding CreateDate, StringFormat={}Create date: {0:dd/MM/yyyy}}" Style="{StaticResource textHint}"/>
                                                             <TextBlock Text="{Binding Total, StringFormat={}Total: {0:F2} $}" Style="{StaticResource textHint}"/>
-                                                            <Button Tag="{Binding}" Content="Cancel" Style="{StaticResource normalButton02}" Width="80" Height="20" FontSize="8"/>
+                                                            <Button Tag="{Binding}" x:Name="cancelAppointmentBtn" Click="cancelAppointmentBtn_Click" Content="Cancel" Style="{StaticResource normalButton02}" Width="80" Height="20" FontSize="8"/>
                                                         </StackPanel>
                                                     </Border>
                                                 </StackPanel>

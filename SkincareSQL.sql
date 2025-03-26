@@ -80,7 +80,7 @@ INSERT INTO [dbo].[Services] (ServiceName, Duration, Price, Status, Description)
 -- Thêm dữ liệu vào bảng Appointments
 INSERT INTO [dbo].[Appointments] (UserId, Total, StartTime, EndTime, CreateDate, Status) VALUES
 (3, 50.00, '2025-03-25 10:00:00', '2025-03-25 11:00:00', '2025-03-20', 'Completed'),
-(3, 75.00, '2025-03-26 14:00:00', '2025-03-26 15:30:00', '2025-03-21', 'Pending'),
+(3, 75.00, '2025-03-26 14:00:00', '2025-03-26 15:30:00', '2025-03-21', 'Canceled'),
 (4, 40.00, '2025-03-27 09:00:00', '2025-03-27 09:45:00', '2025-03-22', 'Completed');
 
 -- Thêm dữ liệu vào bảng AppointmentDetails

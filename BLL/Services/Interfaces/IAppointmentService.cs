@@ -8,5 +8,6 @@ namespace BLL.Services.Interfaces
         Task<bool> IsValidBookingAsync(int userId, DateTime dateTime);
         Task<Appointment> AddAppointmentAsync(Appointment appointment);
         Task<List<Appointment>> GetAppointmentsAsync(int userId, string status);
+        Task<Appointment?> ChangeAppoitmentStatusAsync(Appointment appointment, string status);
     }
 }
