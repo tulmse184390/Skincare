@@ -24,6 +24,12 @@ namespace BLL.Services.Implements
             return await appointmentRepository.GetAppointmentsAsync(userId);
         }
 
+        public async Task<List<Appointment>> GetAppointmentsAsync(int userId, string status)
+        {
+            var list = await appointmentRepository.GetAppointmentsAsync(userId);
+            return list.Where(x => x.Status == status).ToList();
+        }
+
         public async Task<bool> IsValidBookingAsync(int userId, DateTime dateTime)
         {
             var list = await appointmentRepository.GetAppointmentsAsync(userId);

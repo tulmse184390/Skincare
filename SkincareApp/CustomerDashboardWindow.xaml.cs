@@ -27,6 +27,18 @@ namespace SkincareApp
             InitializeComponent();
         }
 
+        // <-- Calendar logic start 
+        private async void LoadUserAppointment()
+        {
+            if (LoginWindow.USER != null)
+            {
+                PendingAppointmentList.ItemsSource = await appointmentService.GetAppointmentsAsync(LoginWindow.USER.UserId, "Pending");
+                CompletedAppointmentList.ItemsSource = await appointmentService.GetAppointmentsAsync(LoginWindow.USER.UserId, "Completed");
+                CanceledAppointmentList.ItemsSource = await appointmentService.GetAppointmentsAsync(LoginWindow.USER.UserId, "Canceled");
+            }
+        }
+        // Calendar logic end -->
+
         // <-- List services logic start
         private void selectService_Click(object sender, RoutedEventArgs e)
         {
@@ -361,6 +373,8 @@ namespace SkincareApp
             bookingTable.Visibility = Visibility.Collapsed;
             appointmentTable.Visibility = Visibility.Visible;
             profileTable.Visibility = Visibility.Collapsed;
+
+            LoadUserAppointment();
         }
 
         private void ViewProfile_MouseUp(object sender, MouseButtonEventArgs e)

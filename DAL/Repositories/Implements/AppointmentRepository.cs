@@ -25,6 +25,7 @@ namespace DAL.Repositories.Implements
         {
             return await dbContext.Appointments.Where(x =>x.UserId == userId)
                                                .Include(x => x.AppointmentDetails)
+                                               .ThenInclude(t => t.Service)
                                                .ToListAsync();
         }
     }
